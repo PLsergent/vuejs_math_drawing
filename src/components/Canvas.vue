@@ -30,7 +30,7 @@ export default {
       p5.draw = () => {
         // draw a sine wave
         p5.stroke("red");
-        var dy = 50 * (2 * p5.cos(3*angle) - p5.sin(angle));
+        var dy = eval("50 * (2 * p5.cos(3*angle) - p5.sin(angle))");
         p5.point(x, 200 - dy);
 
         // increment for next points
