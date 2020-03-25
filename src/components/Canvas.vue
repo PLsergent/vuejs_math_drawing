@@ -19,6 +19,7 @@ export default {
         canvas.background(245);
         canvas.strokeWeight(4);
         p5.angleMode(p5.DEGREES);
+        p5.frameRate(250);
         x = 0;
         y = 0;
         a = 30;
