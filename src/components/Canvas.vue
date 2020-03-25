@@ -8,10 +8,13 @@ import JXG from "jsxgraph";
 export default {
   name: "VueCanvas",
   mounted() {
-    JXG.JSXGraph.initBoard('vue-canvas', { 
-    boundingbox: [-5, 5, 5, -5], axis:true
-  });
-}
+    JXG.JSXGraph.initBoard("vue-canvas", {
+      boundingbox: [-5, 5, 5, -5],
+      axis: true
+    });
+    var elt = document.getElementById("vue-canvas_licenseText");
+    elt.style.display = "none";
+  }
 };
 </script>
 
