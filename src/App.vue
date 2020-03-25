@@ -8,6 +8,7 @@
 <script>
 import VueCanvas from "./components/Canvas.vue";
 
+
 export default {
   name: "App",
   components: {
