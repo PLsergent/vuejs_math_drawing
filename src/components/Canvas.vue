@@ -14,7 +14,7 @@ export default {
 
       // NOTE: Set up is here
       p5.setup = () => {
-        const canvas = p5.createCanvas(500, 500);
+        const canvas = p5.createCanvas(1800, 800);
         canvas.parent("vue-canvas");
         canvas.background(245);
         canvas.strokeWeight(4);
@@ -30,21 +30,12 @@ export default {
       p5.draw = () => {
         // draw a sine wave
         p5.stroke("red");
-        var dy = a * p5.sin(angle);
-        p5.point(x, 180 - dy);
-
-        // draw a cosine wave
-        p5.stroke("blue");
-        var dx = a * p5.cos(angle);
-        p5.point(180 - dx, y);
-
-        // draw a ...
-        p5.stroke("green");
-        p5.point(180 - dx, 180 - dy);
+        var dy = 50 * (2 * p5.cos(3*angle) - p5.sin(angle));
+        p5.point(x, 200 - dy);
 
         // increment for next points
-        angle++;
-        x++;
+        angle += 5;
+        x += 5;
         y++;
 
         // p5.background(245);
@@ -78,7 +69,7 @@ export default {
   display: block;
   margin: 0 auto;
   padding: 0;
-  width: 500px;
+  width: 1000px;
   height: 500px;
   border-radius: 20px;
   overflow: hidden;
