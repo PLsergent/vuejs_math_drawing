@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <h1>Math function drawing</h1>
     <VueCanvas />
   </div>
 </template>
