@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-<<<<<<< HEAD
     <form>
       <section>
         <h3>Entrer votre formule :</h3>
@@ -17,10 +16,6 @@
       </section>
     </form>
     <VueCanvas :formulas="visibleFormulas" />
-=======
-    <h1>Math function drawing</h1>
-    <VueCanvas />
->>>>>>> 5ffd5b842108b42ae4bb52610662e2e2630f4e17
   </div>
 </template>
 
