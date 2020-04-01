@@ -3,6 +3,7 @@
     <form>
       <section>
         <h3>Entrer votre formule :</h3>
+
         <div v-for="(formula,index) in formulas" :key="index">
           <input type="checkbox" v-model="visible[index]" />
           <input
@@ -12,6 +13,8 @@
             class="form-control form-control-lg"
             v-on:keydown.enter.prevent
           />
+          <button v-on:click="addFormulaInput($event)">+</button>
+          <button v-on:click="removeFormulaInput($event,index)">-</button>
         </div>
       </section>
     </form>
@@ -40,6 +43,20 @@ export default {
         if (this.visible[index]) res.push(formula);
       }
       return res;
+    }
+  },
+  methods: {
+    addFormulaInput(e) {
+      this.visible.push(false);
+      this.formulas.push("");
+      e.preventDefault();
+    },
+    removeFormulaInput(e, index) {
+      if (this.formulas.length > 1) {
+        this.visible.splice(index, 1);
+        this.formulas.splice(index, 1);
+      }
+      e.preventDefault();
     }
   }
 };
