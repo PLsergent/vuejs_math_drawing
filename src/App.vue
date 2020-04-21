@@ -2,9 +2,13 @@
   <div id="app">
     <form>
       <section>
-        <h3>Entrer votre formule :</h3>
-
-        <div v-for="(formula,index) in formulas" :key="index">
+        <h2>Math drawing</h2>
+        <p>Boundings on x :</p>
+        <input type="number" step="0.1" value="-1.5" max="-0.5" v-model="bounds[0]" />
+        <input type="number" step="0.1" value="1.5" min="0.5" v-model="bounds[1]" />
+        <hr>
+        <button v-on:click="addFormulaInput($event)">Add formula</button>
+        <div v-for="(formula, index) in formulas" :key="index">
           <input type="checkbox" v-model="visible[index]" />
           <input
             type="text"
@@ -13,12 +17,14 @@
             class="form-control form-control-lg"
             v-on:keydown.enter.prevent
           />
-          <button v-on:click="addFormulaInput($event)">+</button>
+          <input type="color" v-model="colors[index]" />
           <button v-on:click="removeFormulaInput($event,index)">-</button>
         </div>
       </section>
     </form>
-    <VueCanvas :formulas="visibleFormulas" />
+  
+    <VueCanvas :formulas="visibleFormulas" :boundings="boundings" />
+  
   </div>
 </template>
 
@@ -33,28 +39,38 @@ export default {
   data() {
     return {
       formulas: [""],
-      visible: [false]
+      visible: [false],
+      colors: ["#000000"],
+      bounds: [-1.5, 1.5]
     };
   },
   computed: {
     visibleFormulas() {
       const res = [];
       for (const [index, formula] of this.formulas.entries()) {
-        if (this.visible[index]) res.push(formula);
+        if (this.visible[index]) {
+          var push = [formula, this.colors[index]];
+          res.push(push);
+        }
       }
       return res;
+    },
+    boundings() {
+      return this.bounds;
     }
   },
   methods: {
     addFormulaInput(e) {
       this.visible.push(false);
       this.formulas.push("");
+      this.colors.push("#000000")
       e.preventDefault();
     },
     removeFormulaInput(e, index) {
       if (this.formulas.length > 1) {
         this.visible.splice(index, 1);
         this.formulas.splice(index, 1);
+        this.colors.splice(index, 1);
       }
       e.preventDefault();
     }
@@ -69,6 +85,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 </style>

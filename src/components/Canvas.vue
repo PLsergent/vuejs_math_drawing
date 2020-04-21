@@ -10,6 +10,11 @@ export default {
     formulas: {
       type: Array,
       required: true
+    },
+
+    boundings: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -21,7 +26,7 @@ export default {
   methods: {
     f(data) {
       // eslint-disable-next-line
-      const x = data;
+      const x = data; // to compute values of x
       try {
         const res = eval(this.formula);
         return res;
@@ -34,28 +39,28 @@ export default {
     }
   },
   watch: {
-    formulas: function(data) {
+    formulas: function() {
+      var data = this.formulas;
       this.board.removeObject(this.curves);
       this.curves = [];
       if (data.length === 0) return;
-      data.forEach(formula => {
-        this.formula = formula;
-        this.curves.push(
-          this.board.create("functiongraph", [this.f /* minx,maxx*/])
-        );
+      this.board.setBoundingBox([this.boundings[0], 1.5, this.boundings[1], -1.5]);
+      data.forEach(tuple => {
+        this.formula = tuple[0];
+        this.color = tuple[1];
+        this.board.create("functiongraph", [this.f, this.boundings[0], this.boundings[1]], { strokeColor: this.color, strokeWidth: 1.25 })
       });
     }
   },
   mounted() {
     this.board = JXG.JSXGraph.initBoard("VueCanvas", {
-      boundingbox: [-1, 1, 1, -1],
+      boundingbox: [-1.5, 1.5, 1.5, -1.5],
+      // -x, y, x, -y
       axis: true
     });
 
     var elt = document.getElementById("VueCanvas_licenseText");
     elt.style.display = "none";
-
-    // var p = board.create('point', [1,1], {style:6, name:'p'});
   }
 };
 </script>
@@ -67,7 +72,7 @@ export default {
   margin: 0 auto;
   padding: 0;
   width: 100%;
-  height: 80vh;
+  height: 70vh;
   overflow: hidden;
 }
 </style>
