@@ -18,7 +18,7 @@
             v-on:keydown.enter.prevent
           />
           <input type="color" v-model="colors[index]" />
-          <button v-on:click="removeFormulaInput($event,index)">-</button>
+          <button v-on:click="removeFormulaInput($event, index)">-</button>
         </div>
       </section>
     </form>
@@ -72,6 +72,9 @@ export default {
         this.formulas.splice(index, 1);
         this.colors.splice(index, 1);
       }
+      e.preventDefault();
+    },
+    nothing(e) {
       e.preventDefault();
     }
   }

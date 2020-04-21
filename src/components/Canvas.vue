@@ -38,17 +38,33 @@ export default {
       return eval(this.formula);
     }
   },
+  computed: {
+    watchout() {
+      return this.formulas, this.boundings;
+      // so we can call a single watcher for two props
+    }
+  },
   watch: {
-    formulas: function() {
+    watchout() {
       var data = this.formulas;
+      var bounds = this.boundings;
+
+      // remove all furves
       this.board.removeObject(this.curves);
       this.curves = [];
+
+      // return if null
       if (data.length === 0) return;
-      this.board.setBoundingBox([this.boundings[0], 1.5, this.boundings[1], -1.5]);
+
+      // update the boundings
+      this.board.setBoundingBox([bounds[0], 1.5, bounds[1], -1.5]);
+      // for each tuple [f(x), color]
       data.forEach(tuple => {
         this.formula = tuple[0];
         this.color = tuple[1];
-        this.board.create("functiongraph", [this.f, this.boundings[0], this.boundings[1]], { strokeColor: this.color, strokeWidth: 1.25 })
+        this.curves.push(
+          this.board.create("functiongraph", [this.f, bounds[0], bounds[1]], { strokeColor: this.color, strokeWidth: 1.25 })
+        )
       });
     }
   },
