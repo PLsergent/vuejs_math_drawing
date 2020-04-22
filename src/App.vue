@@ -49,7 +49,8 @@ export default {
       const res = [];
       for (const [index, formula] of this.formulas.entries()) {
         if (this.visible[index]) {
-          var push = [formula, this.colors[index]];
+          var mathFormula = formula.replace(/sin/gi,"Math.sin").replace(/cos/gi,"Math.cos");
+          var push = [mathFormula, this.colors[index]];
           res.push(push);
         }
       }
