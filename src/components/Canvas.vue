@@ -10,6 +10,11 @@ export default {
     formulas: {
       type: Array,
       required: true
+    },
+
+    boundings: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -21,7 +26,7 @@ export default {
   methods: {
     f(data) {
       // eslint-disable-next-line
-      const x = data;
+      const x = data; // to compute values of x
       try {
         const res = eval(this.formula);
         return res;
@@ -33,29 +38,48 @@ export default {
       return eval(this.formula);
     }
   },
+  computed: {
+    watchout() {
+      return this.formulas, this.boundings;
+      // so we can call a single watcher for two props
+    }
+  },
   watch: {
-    formulas: function(data) {
+    watchout() {
+      var data = this.formulas;
+      var bounds = this.boundings;
+
+      // remove all furves
       this.board.removeObject(this.curves);
       this.curves = [];
+
+      // return if null
       if (data.length === 0) return;
-      data.forEach(formula => {
-        this.formula = formula;
+
+      // update the boundings
+      this.board.setBoundingBox([bounds[0], 1.5, bounds[1], -1.5]);
+      // for each tuple [f(x), color]
+      data.forEach(tuple => {
+        this.formula = tuple[0];
+        this.color = tuple[1];
         this.curves.push(
-          this.board.create("functiongraph", [this.f /* minx,maxx*/])
-        );
+          this.board.create("functiongraph", [this.f, bounds[0], bounds[1]], { strokeColor: this.color, strokeWidth: 1.25 })
+        )
       });
     }
   },
   mounted() {
     this.board = JXG.JSXGraph.initBoard("VueCanvas", {
-      boundingbox: [-1, 1, 1, -1],
+      boundingbox: [-1.5, 1.5, 1.5, -1.5],
+      // -x, y, x, -y
       axis: true
     });
 
+    // Remove elements from the canva
     var elt = document.getElementById("VueCanvas_licenseText");
+    var elt1 = document.getElementById("VueCanvas_navigationbar");
     elt.style.display = "none";
-
-    // var p = board.create('point', [1,1], {style:6, name:'p'});
+    elt1.style.display = "none";
   }
 };
 </script>
@@ -67,7 +91,7 @@ export default {
   margin: 0 auto;
   padding: 0;
   width: 100%;
-  height: 80vh;
+  height: 70vh;
   overflow: hidden;
 }
 </style>
