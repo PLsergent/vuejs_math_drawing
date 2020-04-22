@@ -1,5 +1,11 @@
 # math_drawing
 
+## Get project
+```
+git clone https://github.com/PLsergent/vuejs_math_drawing.git
+cd vuejs_math_drawing
+```
+
 ## Project setup
 ```
 npm install
@@ -9,6 +15,8 @@ npm install
 ```
 npm run serve
 ```
+
+http://localhost:8080/ 
 
 ### Compiles and minifies for production
 ```
