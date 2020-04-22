@@ -40,7 +40,8 @@ export default {
     visibleFormulas() {
       const res = [];
       for (const [index, formula] of this.formulas.entries()) {
-        if (this.visible[index]) res.push(formula);
+         const mathFormula = formula.replace(/sin/gi,"Math.sin").replace(/cos/gi,"Math.cos");
+        if (this.visible[index]) res.push(mathFormula);
       }
       return res;
     }
