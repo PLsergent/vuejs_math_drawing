@@ -4,10 +4,14 @@
       <section>
         <h2>Math drawing</h2>
         <p>Boundings on x :</p>
+        <!-- Boundings form -->
         <input type="number" step="0.1" value="-1.5" max="-0.5" v-model="bounds[0]" />
         <input type="number" step="0.1" value="1.5" min="0.5" v-model="bounds[1]" />
+        <!---->
         <hr>
+
         <button v-on:click="addFormulaInput($event)">Add formula</button>
+        <!-- Formula form -->
         <div v-for="(formula, index) in formulas" :key="index">
           <input type="checkbox" v-model="visible[index]" />
           <input
@@ -20,6 +24,7 @@
           <input type="color" v-model="colors[index]" />
           <button v-on:click="removeFormulaInput($event, index)">-</button>
         </div>
+        <!---->
       </section>
     </form>
   
@@ -49,6 +54,7 @@ export default {
       const res = [];
       for (const [index, formula] of this.formulas.entries()) {
         if (this.visible[index]) {
+          // Replace cos(x) and sin(x) by Math.cos(x) and Math.sin(x) for js eval
           var mathFormula = formula.replace(/sin/gi,"Math.sin").replace(/cos/gi,"Math.cos");
           var push = [mathFormula, this.colors[index]];
           res.push(push);
@@ -73,9 +79,6 @@ export default {
         this.formulas.splice(index, 1);
         this.colors.splice(index, 1);
       }
-      e.preventDefault();
-    },
-    nothing(e) {
       e.preventDefault();
     }
   }

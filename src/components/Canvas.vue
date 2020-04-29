@@ -49,7 +49,7 @@ export default {
       var data = this.formulas;
       var bounds = this.boundings;
 
-      // remove all furves
+      // remove all curves
       this.board.removeObject(this.curves);
       this.curves = [];
 
@@ -58,7 +58,8 @@ export default {
 
       // update the boundings
       this.board.setBoundingBox([bounds[0], 1.5, bounds[1], -1.5]);
-      // for each tuple [f(x), color]
+      
+      // for each tuple [f(x), #color]
       data.forEach(tuple => {
         this.formula = tuple[0];
         this.color = tuple[1];

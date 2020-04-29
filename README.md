@@ -11,7 +11,7 @@ cd vuejs_math_drawing
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development / run project
 ```
 npm run serve
 ```
